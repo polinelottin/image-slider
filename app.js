@@ -39,8 +39,11 @@ const drawImageOnCanvas = () => {
     const dHeight = height >= width ? canvas.height : (height * canvas.width) / width;
     const dWidth = width >= height ? canvas.width : (width * canvas.height) / height;
 
+    const dx = dWidth === canvas.width ? 0 : (canvas.width - dWidth) * 0.5;
+    const dy = dHeight === canvas.height ? 0 : (canvas.height - dHeight) * 0.5;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(image, 0, 0, width, height, 0, 0, dWidth, dHeight)
+    ctx.drawImage(image, 0, 0, width, height, dx, dy, dWidth, dHeight)
 }
 
 window.onload = () => drawImageOnCanvas();
