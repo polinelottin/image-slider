@@ -11,28 +11,39 @@ const imagesElement = imagesUrl.map(url => {
     return imageElement;
 });
 
+const state = {
+    currentIndex: 0,
+};
+
+const setIndex = increase => { 
+    const { currentIndex } = state;
+    let newIndex = currentIndex + increase;
+
+    if (newIndex === imagesElement.length) {
+        newIndex = 0;
+    }
+
+    if (newIndex < 0) {
+        newIndex = imagesElement.length -1;
+    }
+
+    state.currentIndex = newIndex;
+};
+
 const drawImageOnCanvas = () => {
     var c = document.getElementById("image_slider");
     var ctx = c.getContext("2d");
-    ctx.drawImage(imagesElement[currentImage], 10, 10, 640, 400);
+    ctx.drawImage(imagesElement[state.currentIndex], 10, 10, 640, 400);
 }
 
-let currentImage = 1;
-
-window.onload = () => drawImageOnCanvas(imagesElement[currentImage]);
+window.onload = () => drawImageOnCanvas();
 
 const next = () => {
-    currentImage++;
-    currentImage = currentImage < imagesElement.length ? currentImage : 0;
-
-    console.log('next', currentImage)
-    drawImageOnCanvas(imagesElement[currentImage])
+    setIndex(1);
+    drawImageOnCanvas()
 };
 
 const previous = () => {
-    currentImage--;
-    currentImage = currentImage < 0 ? imagesElement.length - 1 : currentImage;
-
-    console.log('previous', currentImage)
-    drawImageOnCanvas(imagesElement[currentImage])
+    setIndex(-1);
+    drawImageOnCanvas()
 };
