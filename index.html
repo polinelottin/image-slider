@@ -12,18 +12,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body>
+    <body onload="drawImageOnCanvas()">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="slider_container">
-            <canvas id="image_slider" class="slide">
+            <canvas id="slider" class="slider" onclick="handleImageClick(event)">
                 Your browser does not support the HTML canvas tag.
             </canvas>
-            <p>
-                <button onclick="previous()">Previous</button>
-                <button onclick="next()">Next</button>
-            </p>
         </div>
         <script src="app.js" async defer></script>
     </body>
