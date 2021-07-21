@@ -11,7 +11,7 @@ const imagesElement = imagesUrl.map(url => {
     return imageElement;
 });
 
-const setCanvasImage = () => {
+const drawImageOnCanvas = () => {
     var c = document.getElementById("image_slider");
     var ctx = c.getContext("2d");
     ctx.drawImage(imagesElement[currentImage], 10, 10, 640, 400);
@@ -19,11 +19,20 @@ const setCanvasImage = () => {
 
 let currentImage = 1;
 
-window.onload = () => setCanvasImage(imagesElement[currentImage]);
+window.onload = () => drawImageOnCanvas(imagesElement[currentImage]);
 
-const changeImg = () => {
+const next = () => {
     currentImage++;
     currentImage = currentImage < imagesElement.length ? currentImage : 0;
 
-    setCanvasImage(imagesElement[currentImage])
+    console.log('next', currentImage)
+    drawImageOnCanvas(imagesElement[currentImage])
+};
+
+const previous = () => {
+    currentImage--;
+    currentImage = currentImage < 0 ? imagesElement.length - 1 : currentImage;
+
+    console.log('previous', currentImage)
+    drawImageOnCanvas(imagesElement[currentImage])
 };
