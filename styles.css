@@ -2,3 +2,7 @@
     margin:0;
     padding:0;
 }
+
+.slide {
+    border: 1px solid grey;
+}

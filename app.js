@@ -31,9 +31,16 @@ const setIndex = increase => {
 };
 
 const drawImageOnCanvas = () => {
-    var c = document.getElementById("image_slider");
-    var ctx = c.getContext("2d");
-    ctx.drawImage(imagesElement[state.currentIndex], 10, 10, 640, 400);
+    const canvas = document.getElementById("image_slider");
+    const ctx = canvas.getContext("2d");
+    const image = imagesElement[state.currentIndex];
+
+    const { width, height } = image;
+    const dHeight = height >= width ? canvas.height : (height * canvas.width) / width;
+    const dWidth = width >= height ? canvas.width : (width * canvas.height) / height;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(image, 0, 0, width, height, 0, 0, dWidth, dHeight)
 }
 
 window.onload = () => drawImageOnCanvas();
