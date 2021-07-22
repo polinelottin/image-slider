@@ -3,9 +3,22 @@
 [![licence mit](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/polinelottin/image-slider/blob/add-license-1/LICENSE.md)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](image-slider-silk.vercel.app)
 
-> :rocket: This is an example of Image Slider usign HTML canvas.
+Content
+=================
+<!--ts-->
+   * [About](#About)
+   * [Prerequisites](#Prerequisites)
+   * [How to use](#How-to-use)
+   * [Known Issues](#Known-Issues)
+   * [License](#License)
+<!--te-->
 
-## How to test 
+## About
+> :rocket: This is an example of Image Slider usign HTML canvas.
+## Prerequisites
+
+
+## How to use 
 
 1. Clone repo
 ```
