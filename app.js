@@ -26,20 +26,54 @@ const setIndex = increase => {
     state.currentIndex = newIndex;
 };
 
+dimensions = {
+    max_height : 800,
+    max_width  : 600,
+    width  : 800, // this will change
+    height : 600, // this will change
+    largest_property : function () {
+        return this.height > this.width ? "height" : "width";
+    },
+    read_dimensions : function (img) {
+        this.width = img.width;
+        this.height = img.height;
+        return this;
+    },
+    scaling_factor : function (original, computed) {
+        return computed / original;
+    },
+    scale_to_fit : function () {
+        var x_factor = this.scaling_factor(this.width,  this.max_width),
+            y_factor = this.scaling_factor(this.height, this.max_height),
+
+            largest_factor = Math.min(x_factor, y_factor);
+
+        this.width  *= largest_factor;
+        this.height *= largest_factor;
+    }
+};
+
 const selectAreaAndDraw = () => {
     const image = state.images[state.currentIndex];
     const canvas = document.getElementById("slider");
     const ctx = canvas.getContext("2d");
 
-    const { width, height } = image;
-    const dHeight = height >= width ? canvas.height : (height * canvas.width) / width;
-    const dWidth = width >= height ? canvas.width : (width * canvas.height) / height;
+    dimensions.read_dimensions(image).scale_to_fit();
 
-    const dx = dWidth === canvas.width ? 0 : (canvas.width - dWidth) * 0.5;
-    const dy = dHeight === canvas.height ? 0 : (canvas.height - dHeight) * 0.5;
-
+    canvas.width  = dimensions.width;
+    canvas.height = dimensions.height;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(image, 0, 0, width, height, dx, dy, dWidth, dHeight);
+    ctx.drawImage(image, 0, 0, dimensions.width, dimensions.height);
+
+    // const { width, height } = image;
+    // const dHeight = height >= width ? canvas.height : (height * canvas.width) / width;
+    // const dWidth = width >= height ? canvas.width : (width * canvas.height) / height;
+
+    // const dx = dWidth === canvas.width ? 0 : (canvas.width - dWidth) * 0.5;
+    // const dy = dHeight === canvas.height ? 0 : (canvas.height - dHeight) * 0.5;
+
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.drawImage(image, 0, 0, width, height, dx, dy, dWidth, dHeight);
 };
 
 const loadImages = async () => {

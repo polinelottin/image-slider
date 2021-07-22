@@ -15,6 +15,7 @@ Content
 
 ## About
 > :rocket: This is an example of Image Slider usign HTML canvas.
+
 ## Prerequisites
 
 
