@@ -1,30 +1,33 @@
-const imagesUrl = [
+const sources = [
     'http://challenge.publitas.com/images/0.jpg',
     'http://challenge.publitas.com/images/1.jpg',
     'http://challenge.publitas.com/images/2.jpg',
     'http://challenge.publitas.com/images/3.jpg',
+    'https://github.com/polinelottin.png'
 ];
 
 const state = {
     currentIndex: 0,
+    images: [],
 };
 
 const setIndex = increase => { 
     const { currentIndex } = state;
     let newIndex = currentIndex + increase;
 
-    if (newIndex === imagesUrl.length) {
+    if (newIndex === sources.length) {
         newIndex = 0;
     }
 
     if (newIndex < 0) {
-        newIndex = imagesUrl.length -1;
+        newIndex = sources.length -1;
     }
 
     state.currentIndex = newIndex;
 };
 
-const selectAreaAndDraw = image => {
+const selectAreaAndDraw = () => {
+    const image = state.images[state.currentIndex];
     const canvas = document.getElementById("slider");
     const ctx = canvas.getContext("2d");
 
@@ -39,31 +42,33 @@ const selectAreaAndDraw = image => {
     ctx.drawImage(image, 0, 0, width, height, dx, dy, dWidth, dHeight);
 };
 
-const drawImageOnCanvas = () => {
+const loadImages = async () => {
+    for (const source of sources) {
+        const img = new Image();
+        img.src = source;
+        await img.decode();
+        state.images.push(img);
+    }
+};
+
+(async () => {
     const loading = document.getElementById("loading");
     loading.style.display = 'block';
 
-    var img = new Image();
-    img.onload = () => {
-        selectAreaAndDraw(img);
-        loading.style.display = 'none';
-    };
-    img.onerror = () => {
-        console.log('Error loading image :-(');
-        loading.display = 'none';
-        next();
-    };
-    img.src = imagesUrl[state.currentIndex];
-}
+    await loadImages();
+
+    selectAreaAndDraw();
+    loading.style.display = 'none';
+})();
 
 const next = () => {
     setIndex(1);
-    drawImageOnCanvas();
+    selectAreaAndDraw();
 };
 
 const previous = () => {
     setIndex(-1);
-    drawImageOnCanvas();
+    selectAreaAndDraw();
 };
 
 const handleImageClick = event => {

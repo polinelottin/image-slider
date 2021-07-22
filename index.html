@@ -7,18 +7,23 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Poline's slider for Publitas :)</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body onload="drawImageOnCanvas()">
+    <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="slider_container">
             <img id="loading" class="loading" src="./assets/loading.gif" />
-            <canvas id="slider" class="slider" onclick="handleImageClick(event)" alt="Bob Marley's photos">
+            <canvas
+                id="slider"
+                class="slider"
+                onclick="handleImageClick(event)"
+                alt="Bob Marley's photos"
+            >
                 Your browser does not support the HTML canvas tag.
             </canvas>
         </div>
