@@ -7,6 +7,18 @@
     display: flex;
     justify-content: center;
     margin: 1rem;
+    position: relative;
+}
+
+.loading {
+    width: 32px;
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
 }
 
 .slider {

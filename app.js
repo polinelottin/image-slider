@@ -24,12 +24,9 @@ const setIndex = increase => {
     state.currentIndex = newIndex;
 };
 
-const drawImageOnCanvas = () => {
+const selectAreaAndDraw = image => {
     const canvas = document.getElementById("slider");
     const ctx = canvas.getContext("2d");
-
-    const image = new Image();
-    image.src = imagesUrl[state.currentIndex];
 
     const { width, height } = image;
     const dHeight = height >= width ? canvas.height : (height * canvas.width) / width;
@@ -40,6 +37,23 @@ const drawImageOnCanvas = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 0, 0, width, height, dx, dy, dWidth, dHeight);
+};
+
+const drawImageOnCanvas = () => {
+    const loading = document.getElementById("loading");
+    loading.style.display = 'block';
+
+    var img = new Image();
+    img.onload = () => {
+        selectAreaAndDraw(img);
+        loading.style.display = 'none';
+    };
+    img.onerror = () => {
+        console.log('Error loading image :-(');
+        loading.display = 'none';
+        next();
+    };
+    img.src = imagesUrl[state.currentIndex];
 }
 
 const next = () => {
